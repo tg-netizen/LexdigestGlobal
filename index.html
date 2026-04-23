@@ -3,163 +3,421 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LexdigestGlobal | Strategic Intelligence</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Lora:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>LexdigestGlobal</title>
     <style>
-        :root { --faz-red: #8c0303; --paper-white: #fcfcfc; }
-        body { background-color: var(--paper-white); color: #1a1a1a; font-family: 'Lora', serif; line-height: 1.6; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
-        .sans { font-family: 'Inter', sans-serif; }
-        .header-border { border-top: 4px solid #000; border-bottom: 1px solid #000; }
-        .btn-black { background: #1a1a1a; color: white; font-family: 'Inter', sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; padding: 0.8rem 1.5rem; transition: 0.3s; cursor: pointer; border: none; }
-        .btn-black:hover { background: var(--faz-red); }
-        .advisory-tile { border: 1px solid #e5e5e5; transition: all 0.4s ease; cursor: pointer; height: 260px; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; background: #fff; }
-        .advisory-tile:hover { border-color: black; transform: translateY(-3px); }
-        .advisory-tile h3 { font-size: 1.5rem; transition: color 0.3s; }
-        .advisory-tile:hover h3 { color: var(--faz-red); }
-        .article-card { border-bottom: 1px solid #eee; padding-bottom: 2rem; margin-bottom: 2rem; transition: opacity 0.2s; cursor: pointer; }
-        .article-card:hover { opacity: 0.8; }
-        .is-admin .admin-panel { display: block; }
-        .admin-panel { display: none; background: #fff1f1; border: 2px solid #8c0303; padding: 20px; margin-bottom: 40px; }
-        .hidden { display: none; }
-        #login-modal { background: rgba(0,0,0,0.9); backdrop-filter: blur(4px); }
+        :root {
+            --text-main: #111;
+            --bg-main: #fcfcfc;
+            --border-color: #000;
+            --accent-blue: #1c3b7a; 
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
+            color: var(--text-main);
+            background-color: var(--bg-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px 10px;
+            border-bottom: 3px solid var(--border-color);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1.logo {
+            font-size: 4.5rem;
+            margin: 0;
+            letter-spacing: -1.5px;
+            font-weight: normal;
+            cursor: pointer; /* Makes it look clickable */
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 15px 0;
+            border-bottom: 1px solid #ccc;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            font-size: 1.1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent-blue);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            display: none; 
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Home Layout */
+        .home-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .home-text {
+            flex: 1;
+            min-width: 300px;
+            font-size: 1.35rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .home-image-container {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* This is how you insert your image later */
+        .home-image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc; /* Optional border */
+        }
+
+        /* Placeholder style just for viewing before you add the image */
+        .img-placeholder {
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 80px 40px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            text-transform: uppercase;
+            width: 100%;
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+        /* Journal Layout */
+        .journal-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .journal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .article-card {
+            border-top: 2px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        .article-category {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .article-card h2 {
+            font-size: 1.8rem;
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+        }
+
+        /* Advisory & Tool Layout */
+        .content-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content-wrapper h2 {
+            font-size: 2.5rem;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .tool-wrapper {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-top: 40px;
+        }
+
+        .tool-wrapper label {
+            display: block;
+            font-family: sans-serif;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+
+        .tool-wrapper select {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            font-family: sans-serif;
+        }
+
+        .tool-wrapper button {
+            width: 100%;
+            background: var(--text-main);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-family: sans-serif;
+            font-weight: bold;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+
+        .tool-wrapper button:hover {
+            background: var(--accent-blue);
+        }
+
+        #tool-result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f4f6f9;
+            border-left: 4px solid var(--accent-blue);
+            display: none;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            font-family: sans-serif;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .contact-form button {
+            background: var(--text-main);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
     </style>
 </head>
-<body class="px-4 md:px-10">
+<body>
 
-    <div class="max-w-7xl mx-auto py-3 flex justify-between items-center border-b border-gray-100 sans text-[10px] font-bold uppercase tracking-widest">
-        <button onclick="openLoginModal()" class="hover:text-red-800">Editor Login</button>
-        <p>LexdigestGlobal • Strategic Intelligence</p>
-        <p id="nav-date"></p>
-    </div>
-
-    <div id="login-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-        <div class="bg-white p-10 max-w-sm w-full border-t-8 border-black shadow-2xl">
-            <h2 class="text-3xl font-bold mb-6 italic text-center">Lexdigest Editor</h2>
-            <input type="email" id="email-field" placeholder="E-Mail" class="w-full p-3 border mb-4 sans text-sm outline-none focus:border-black">
-            <input type="password" id="pass-field" placeholder="Password" class="w-full p-3 border mb-8 sans text-sm outline-none focus:border-black">
-            <button onclick="attemptLogin()" class="w-full bg-black text-white py-4 sans font-bold uppercase text-xs tracking-widest">Sign In</button>
-            <button onclick="closeLoginModal()" class="w-full mt-4 text-[9px] uppercase sans text-gray-400 font-bold">Cancel</button>
-        </div>
-    </div>
-
-    <header class="max-w-7xl mx-auto text-center mb-8 pt-10">
-        <h1 class="text-7xl md:text-9xl font-bold italic tracking-tighter mb-6 cursor-pointer" onclick="renderHome()">LexdigestGlobal</h1>
-        <nav class="header-border py-4 flex justify-center space-x-6 md:space-x-12 text-[11px] md:text-sm sans font-bold uppercase tracking-tight">
-            <a href="javascript:void(0)" onclick="renderHome()" class="hover:text-red-900 transition">Journals</a>
-            <a href="javascript:void(0)" onclick="renderAdvisoryHub()" class="hover:text-red-900 transition">Strategic Advisory</a>
-            <a href="javascript:void(0)" onclick="renderContact()" class="hover:text-red-900 transition">Contact</a>
-            <a href="javascript:void(0)" onclick="renderImpressum()" class="hover:text-red-900 transition">Impressum</a>
-        </nav>
+    <header>
+        <h1 class="logo" onclick="showSection('home')">LexdigestGlobal</h1>
     </header>
 
-    <div id="admin-tools" class="max-w-7xl mx-auto admin-panel">
-        <h3 class="sans text-xs font-bold text-red-800 uppercase mb-4 tracking-widest">Admin: New Entry</h3>
-        <input type="text" id="new-art-title" placeholder="Title" class="w-full p-3 border mb-2 sans text-sm outline-none focus:border-red-800">
-        <textarea id="new-art-body" placeholder="Content..." class="w-full p-3 border mb-4 h-32 sans text-sm outline-none focus:border-red-800"></textarea>
-        <button onclick="createNewArticle()" class="btn-black text-xs">Publish (Session)</button>
-    </div>
+    <nav>
+        <a onclick="showSection('advisory')">Advisory</a>
+        <a onclick="showSection('journals')">Journals</a>
+        <a onclick="showSection('contact')">Contact</a>
+        <a onclick="showSection('impressum')">Impressum</a>
+    </nav>
 
-    <main id="view-container" class="max-w-7xl mx-auto pb-32">
-        </main>
+    <main>
+        <section id="home" class="active">
+            <div class="home-grid">
+                <div class="home-text">
+                    <p>We translate global complexity into local action.<br>
+                    LexdigestGlobal is a hybrid intelligence platform designed to educate.</p>
+                    <p>We provide deep-dive journalistic insights into shifting geopolitical power structures, paired with a strategic advisory hub that navigates SMEs through the intricacies of EU funding, regulatory compliance, and international expansion.</p>
+                </div>
+                <div class="home-image-container">
+                    <div class="img-placeholder">
+                        PROTECT<br>WHAT<br>MATTERS.
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <footer class="max-w-7xl mx-auto border-t-4 border-black mt-20 py-12 text-center sans text-[10px] uppercase tracking-[0.5em] text-zinc-400">
-        © 2026 LexdigestGlobal Intelligence • Theo G. • Vienna
-    </footer>
+        <section id="journals">
+            <div class="journal-header">
+                <h2 style="font-size: 2.5rem; margin-bottom: 0;">Intelligence & Analysis</h2>
+                <p style="font-family: sans-serif; color: #555;">In-depth reporting on geopolitics, corporate strategy, and regulatory shifts.</p>
+            </div>
+            <div class="journal-grid">
+                <article class="article-card">
+                    <div class="article-category">Geopolitics</div>
+                    <h2>The Shifting Supply Chains: Why Nearshoring is the New Normal</h2>
+                    <p>An in-depth look at how recent geopolitical tensions are forcing European SMEs to rethink their reliance on distant manufacturing hubs...</p>
+                </article>
+                <article class="article-card">
+                    <div class="article-category">Corporate Strategy</div>
+                    <h2>Surviving the Tech Cold War: A Guide for Medium Enterprises</h2>
+                    <p>As superpowers clash over semiconductor dominance, how can your software architecture remain resilient and independent?</p>
+                </article>
+                <article class="article-card">
+                    <div class="article-category">Regulatory Compliance</div>
+                    <h2>The EU AI Act: Bureaucratic Nightmare or Competitive Advantage?</h2>
+                    <p>Decoding the complexities of the latest Brussels legislation and how smart SMEs can use compliance as a unique selling proposition.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="advisory">
+            <div class="content-wrapper">
+                <h2>Strategic Advisory</h2>
+                <p>Digital transformation and geopolitical positioning are no longer optional. We help you implement low-cost digital strategies and leverage European funding mechanisms (like Digital Europe and ESF+).</p>
+                
+                <div class="tool-wrapper">
+                    <h3 style="margin-top: 0; font-size: 1.8rem;">SME Consulting Tool</h3>
+                    <p style="font-family: sans-serif; color: #555;">Evaluate your current position. Answer the questions below to receive a customized, prioritized strategic action plan for your enterprise.</p>
+                    
+                    <label for="sme-size">1. Company Size</label>
+                    <select id="sme-size">
+                        <option value="micro">Micro (1-9 employees)</option>
+                        <option value="small">Small (10-49 employees)</option>
+                        <option value="medium">Medium (50-249 employees)</option>
+                    </select>
+
+                    <label for="sme-industry">2. Primary Industry</label>
+                    <select id="sme-industry">
+                        <option value="manufacturing">Manufacturing & Production</option>
+                        <option value="tech">Technology & IT Services</option>
+                        <option value="retail">Retail & E-Commerce</option>
+                        <option value="services">Professional Services / Consulting</option>
+                    </select>
+
+                    <label for="sme-digi">3. Current Level of Digitalization</label>
+                    <select id="sme-digi">
+                        <option value="low">Low (Mostly paper/manual Excel)</option>
+                        <option value="medium">Medium (Basic CRM/ERP in place)</option>
+                        <option value="high">High (Automated workflows, data-driven)</option>
+                    </select>
+
+                    <button onclick="generateStrategy()">Generate Action Plan</button>
+
+                    <div id="tool-result">
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="content-wrapper">
+                <h2>Contact Us</h2>
+                <p>Reach out for deep-dive strategy sessions or journalistic inquiries.</p>
+                
+                <form class="contact-form" name="contact" method="POST" data-netlify="true">
+                    <label>Name</label>
+                    <input type="text" name="name" required>
+                    
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                    
+                    <label>Message</label>
+                    <textarea name="message" rows="6" required></textarea>
+                    
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="impressum">
+            <div class="content-wrapper">
+                <h2>Impressum</h2>
+                <p>Information corresponding to § 25 Mediengesetz (Austrian Media Law):</p>
+                <p><strong>Media Owner and Publisher:</strong><br>
+                [Your Name/Company Name]<br>
+                [Your Address in Vienna]<br>
+                Austria</p>
+                <p><strong>Basic Direction of the Medium:</strong><br>
+                LexdigestGlobal is an independent journalistic and advisory platform providing information on geopolitics, corporate strategy, and regulatory affairs.</p>
+                <p><em>Note: Trade license (Gewerbe) registration pending successful Proof of Concept.</em></p>
+            </div>
+        </section>
+
+    </main>
 
     <script>
-        // Data Handling
-        let articles = JSON.parse(localStorage.getItem('lex_articles')) || [
-            { id: 1, cat: "GEOPOLITICS", title: "The Geopolitics of Capital", sub: "Global Shift 2026", body: "The current shift in global trade corridors necessitates a fundamental rethink of industrial policy...", img: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=1200" }
-        ];
-        let loggedIn = false;
-
-        function openLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); }
-        function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
-
-        function attemptLogin() {
-            const email = document.getElementById('email-field').value;
-            const pass = document.getElementById('pass-field').value;
-            if(email === "glunz.theo@gmail.com" && pass === "wochen34") {
-                loggedIn = true; 
-                document.body.classList.add('is-admin'); 
-                closeLoginModal(); 
-                renderHome();
-            } else { alert("Login failed."); }
+        // Navigation Logic
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(sec => sec.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo(0, 0); // Scroll to top on navigation
         }
 
-        function renderHome() {
-            const container = document.getElementById('view-container');
-            let html = `<div class="grid grid-cols-1 md:grid-cols-2 gap-12 pt-10">`;
-            articles.forEach(art => {
-                html += `
-                <div class="article-card" onclick="viewArticle(${art.id})">
-                    <img src="${art.img}" class="w-full h-64 object-cover mb-4 grayscale hover:grayscale-0 transition duration-500">
-                    <h3 class="text-3xl font-bold">${art.title}</h3>
-                    <p class="text-gray-500 mt-2 italic">Read Report →</p>
-                </div>`;
-            });
-            html += `</div>`;
-            container.innerHTML = html;
-        }
+        // Logic for the SME Consulting Tool
+        function generateStrategy() {
+            const size = document.getElementById('sme-size').value;
+            const industry = document.getElementById('sme-industry').value;
+            const digi = document.getElementById('sme-digi').value;
+            
+            const resultDiv = document.getElementById('tool-result');
+            let outputHTML = "<h3 style='margin-top: 0;'>Prioritized Strategic Recommendations</h3><ol style='font-family: serif; font-size: 1.1rem; padding-left: 20px;'>";
 
-        function viewArticle(id) {
-            const art = articles.find(a => a.id === id);
-            document.getElementById('view-container').innerHTML = `
-                <div class="max-w-3xl mx-auto py-10">
-                    <button onclick="renderHome()" class="sans text-[10px] font-bold uppercase mb-8 border-b border-black">← Back to Journals</button>
-                    <h2 class="text-5xl font-bold mb-8 italic leading-tight">${art.title}</h2>
-                    <div class="text-xl leading-relaxed whitespace-pre-wrap">${art.body}</div>
-                </div>`;
-            window.scrollTo(0,0);
-        }
+            if(digi === 'low') {
+                outputHTML += "<li style='margin-bottom: 15px;'><strong>Priority 1 (Urgent): Digital Baseline.</strong> Establish core digital infrastructure immediately. Leverage EU funds (e.g., Digital Europe) to cover upskilling costs for your current staff. Delaying this threatens market survival within 24 months.</li>";
+            } else if (digi === 'medium') {
+                outputHTML += "<li style='margin-bottom: 15px;'><strong>Priority 1: Process Optimization.</strong> Your baseline is stable. Shift focus to interoperability between your tools and investigate AI-driven data analytics to identify hidden margin bleed.</li>";
+            } else {
+                outputHTML += "<li style='margin-bottom: 15px;'><strong>Priority 1: Tech-Led Scaling.</strong> You are digitally mature. Focus on using your tech stack to ensure compliance with incoming EU data regulations (like the AI Act) and use it as a competitive advantage.</li>";
+            }
 
-        function renderAdvisoryHub() {
-            const container = document.getElementById('view-container');
-            const advisors = [
-                { title: 'Global Funding', desc: 'Sovereign Wealth', icon: '€' },
-                { title: 'Relocation', desc: 'Market Entry', icon: '↗' },
-                { title: 'SME Tool', desc: 'Funnel Path', icon: '⚡' }
-            ];
-            let html = `<div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-10">`;
-            advisors.forEach(ad => {
-                html += `<div class="advisory-tile" onclick="renderHome()">
-                    <span class="text-3xl opacity-20 mb-4">${ad.icon}</span>
-                    <p class="sans text-[9px] font-bold uppercase text-gray-400 mb-1">${ad.desc}</p>
-                    <h3>${ad.title}</h3>
-                </div>`;
-            });
-            container.innerHTML = html + `</div>`;
-        }
+            if(industry === 'manufacturing' || industry === 'retail') {
+                outputHTML += "<li style='margin-bottom: 15px;'><strong>Priority 2: Supply Chain Resilience.</strong> Current geopolitical volatility demands action. Implement a 'China + 1' or nearshoring strategy to secure raw materials and inventory within the European single market or allied zones.</li>";
+            } else {
+                outputHTML += "<li style='margin-bottom: 15px;'><strong>Priority 2: Talent & IP Retention.</strong> In the service/tech sector, your IP is your workforce. Develop aggressive retention strategies and utilize EU cross-border talent pools to mitigate local skill shortages.</li>";
+            }
 
-        function renderContact() {
-            document.getElementById('view-container').innerHTML = `
-                <div class="max-w-xl mx-auto py-10 text-center">
-                    <h2 class="text-4xl font-bold mb-8 italic">Contact</h2>
-                    <form class="space-y-4" onsubmit="event.preventDefault(); alert('Briefing Request Sent.');">
-                        <input type="text" placeholder="Name" class="w-full p-4 border bg-white outline-none focus:border-black">
-                        <textarea placeholder="Enquiry" class="w-full p-4 border bg-white outline-none focus:border-black h-40"></textarea>
-                        <button class="btn-black w-full">Send Message</button>
-                    </form>
-                </div>`;
-        }
+            if(size === 'micro') {
+                outputHTML += "<li style='margin-bottom: 15px;'><strong>Priority 3: Lean Agility.</strong> As a micro-enterprise, avoid heavy consulting overhead. Utilize hybrid intelligence hubs (like LexdigestGlobal) and standardized SaaS tools to punch above your weight in operational efficiency.</li>";
+            } else {
+                outputHTML += "<li style='margin-bottom: 15px;'><strong>Priority 3: Structural Expansion.</strong> With your size, prepare for M&A opportunities. Distressed competitors failing to navigate regulatory complexity can become cheap acquisition targets for your expansion.</li>";
+            }
 
-        function renderImpressum() {
-            document.getElementById('view-container').innerHTML = `<div class="max-w-xl mx-auto py-20 text-center"><h2 class="text-3xl font-bold mb-6 italic italic">Impressum</h2><p>Theo G. • Vienna, Austria<br>Journalistic Briefings<br>§25 Media Act Compliant</p></div>`;
+            outputHTML += "</ol>";
+            
+            resultDiv.innerHTML = outputHTML;
+            resultDiv.style.display = 'block';
         }
-
-        function createNewArticle() {
-            const title = document.getElementById('new-art-title').value;
-            const body = document.getElementById('new-art-body').value;
-            if(!title || !body) return alert("Please fill all fields.");
-            articles.unshift({ id: Date.now(), title, body, img: "https://images.unsplash.com/photo-1454165833767-0266b1497b33?q=80&w=800" });
-            localStorage.setItem('lex_articles', JSON.stringify(articles));
-            renderHome();
-        }
-
-        document.getElementById('nav-date').innerText = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-        renderHome();
     </script>
 </body>
 </html>
